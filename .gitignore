@@ -1,0 +1,13 @@
+/node_modules
+/npm-debug.log
+.DS_Store
+/dist
+/_dev
+/coverage
+package-lock.json
+
+# Additional bundles
+/devtools.js
+/devtools.js.map
+/debug.js
+/debug.js.map
