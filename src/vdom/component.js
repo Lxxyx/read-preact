@@ -213,6 +213,8 @@ export function renderComponent(component, opts, mountAll, isChild) {
 export function buildComponentFromVNode(dom, vnode, context, mountAll) {
 	// 把 Vnode 转译成 dom node
 
+	// isDirectOwner => 由该 Vnode 直接产生的 component
+	// isOwner => 由该 VNode 派生的子component
 
 	let c = dom && dom._component,
 		originalComponent = c,
@@ -225,10 +227,12 @@ export function buildComponentFromVNode(dom, vnode, context, mountAll) {
 	}
 
 	if (c && isOwner && (!mountAll || c._component)) {
+		// 如果是子组件，则调用更新Props的函数，来实现更新
 		setComponentProps(c, props, ASYNC_RENDER, context, mountAll);
 		dom = c.base;
 	}
 	else {
+		// 如果不是，则移除节点，重新插入
 		if (originalComponent && !isDirectOwner) {
 			unmountComponent(originalComponent);
 			dom = oldDom = null;

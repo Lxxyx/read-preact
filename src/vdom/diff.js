@@ -265,20 +265,24 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
  *	@param {Boolean} [unmountOnly=false]	If `true`, only triggers unmount lifecycle, skips removal
  */
 export function recollectNodeTree(node, unmountOnly) {
+	// 如果是组件则卸载组件
 	let component = node._component;
 	if (component) {
 		// if node is owned by a Component, unmount that component (ends up recursing back here)
 		unmountComponent(component);
 	}
 	else {
+		// 否则卸载 DOM 节点
+		// 卸载前设置 ref 为 null
 		// If the node's VNode had a ref function, invoke it with null here.
 		// (this is part of the React spec, and smart for unsetting references)
 		if (node[ATTR_KEY]!=null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
 
+		// 默认会移除自身
 		if (unmountOnly===false || node[ATTR_KEY]==null) {
 			removeNode(node);
 		}
-
+		// 移除子节点
 		removeChildren(node);
 	}
 }

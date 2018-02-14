@@ -15,6 +15,9 @@ export function extend(obj, props) {
  * use of HTML Promise to schedule the callback if available,
  * otherwise falling back to `setTimeout` (mainly for IE<11).
  *
+ * 生成异步函数，但要求尽快执行。
+ * Promise不存在时fallback至setTimeout
+ *
  * @param {Function} callback
  */
 export const defer = typeof Promise=='function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;

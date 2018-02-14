@@ -40,6 +40,9 @@ export function isNamedNode(node, nodeName) {
  * @returns {Object} props
  */
 export function getNodeProps(vnode) {
+
+	// 获取 VNode 的Props
+	// 先设置 Props，再设置 defaultProps，避免已设置的重新设置，节省开销
 	let props = extend({}, vnode.attributes);
 	props.children = vnode.children;
 
