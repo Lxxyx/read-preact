@@ -8,6 +8,7 @@ import { h } from './h';
  * @param {VNode} rest		Any additional arguments will be used as replacement children.
  */
 export function cloneElement(vnode, props) {
+	// 通过渲染函数，来 clone 一个 Element
 	return h(
 		vnode.nodeName,
 		extend(extend({}, vnode.attributes), props),

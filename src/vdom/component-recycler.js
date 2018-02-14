@@ -16,13 +16,20 @@ export function collectComponent(component) {
 
 /** Create a component. Normalizes differences between PFC's and classful Components. */
 export function createComponent(Ctor, props, context) {
+
+	// PFC => Pure Function Component
+	// createComponent 是为了移除函数组件与普通 Component 的差异
+	// 从而避免后续的重复操作
+
 	let list = components[Ctor.name],
 		inst;
 
+	// 如果是 Component
 	if (Ctor.prototype && Ctor.prototype.render) {
 		inst = new Ctor(props, context);
 		Component.call(inst, props, context);
 	}
+	// PFC 的情况下，将 PFC 初始化为 Component
 	else {
 		inst = new Component(props, context);
 		inst.constructor = Ctor;

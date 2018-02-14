@@ -289,8 +289,10 @@ export function unmountComponent(component) {
 
 		// 移除 Node
 		removeNode(base);
+		// 将 Component 收集至 Map 中以待下次使用
 		collectComponent(component);
 
+		// 移除 Children
 		removeChildren(base);
 	}
 
